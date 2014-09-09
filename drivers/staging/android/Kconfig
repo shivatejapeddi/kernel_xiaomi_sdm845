@@ -39,6 +39,14 @@ config ANDROID_WHETSTONE
     ---help---
         report to whetstone the memory state when reach target limit value.
 
+config ANDROID_LMK_ADJ_RBTREE
+	bool "Use RBTREE for Android Low Memory Killer"
+	depends on ANDROID_LOW_MEMORY_KILLER
+	default N
+	---help---
+	  Use oom_score_adj rbtree to select the best proecss to kill
+	  when system in low memory status.
+
 config ANDROID_VSOC
 	tristate "Android Virtual SoC support"
 	default n
