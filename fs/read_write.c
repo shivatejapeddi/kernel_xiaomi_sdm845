@@ -22,7 +22,7 @@
 #include <linux/mi_io.h>
 #include "internal.h"
 
-#include <asm/uaccess.h>
+#include <linux/uaccess.h>
 #include <asm/unistd.h>
 
 
