@@ -2911,7 +2911,8 @@ static u32 __compute_runnable_contrib(u64 n)
  */
 static __always_inline int
 __update_load_avg(u64 now, int cpu, struct sched_avg *sa,
-		  unsigned long weight, int running, struct cfs_rq *cfs_rq)
+		  unsigned long weight, int running, struct cfs_rq *cfs_rq,
+		  struct rt_rq *rt_rq)
 {
 	u64 delta, scaled_delta, periods;
 	u32 contrib;
@@ -3110,7 +3111,7 @@ void set_task_rq_fair(struct sched_entity *se,
 		n_last_update_time = next->avg.last_update_time;
 #endif
 		__update_load_avg(p_last_update_time, cpu_of(rq_of(prev)),
-				  &se->avg, 0, 0, NULL);
+				  &se->avg, 0, 0, NULL, NULL);
 		se->avg.last_update_time = n_last_update_time;
 	}
 }
@@ -3358,7 +3359,7 @@ update_cfs_rq_load_avg(u64 now, struct cfs_rq *cfs_rq, bool update_freq)
 	}
 
 	decayed = __update_load_avg(now, cpu_of(rq_of(cfs_rq)), sa,
-		scale_load_down(cfs_rq->load.weight), cfs_rq->curr != NULL, cfs_rq);
+		scale_load_down(cfs_rq->load.weight), cfs_rq->curr != NULL, cfs_rq, NULL);
 
 #ifndef CONFIG_64BIT
 	smp_wmb();
@@ -3373,6 +3374,15 @@ update_cfs_rq_load_avg(u64 now, struct cfs_rq *cfs_rq, bool update_freq)
 		trace_sched_load_avg_cpu(cpu_of(rq_of(cfs_rq)), cfs_rq);
 
 	return decayed || removed_load;
+}
+
+int update_rt_rq_load_avg(u64 now, int cpu, struct rt_rq *rt_rq, int running)
+{
+	int ret;
+
+	ret = __update_load_avg(now, cpu, &rt_rq->avg, 0, running, NULL, rt_rq);
+
+	return ret;
 }
 
 /*
@@ -3398,7 +3408,7 @@ static inline void update_load_avg(struct sched_entity *se, int flags)
 	if (se->avg.last_update_time && !(flags & SKIP_AGE_LOAD)) {
 		__update_load_avg(now, cpu, &se->avg,
 			  se->on_rq * scale_load_down(se->load.weight),
-			  cfs_rq->curr == se, NULL);
+			  cfs_rq->curr == se, NULL, NULL);
 	}
 
 	decayed  = update_cfs_rq_load_avg(now, cfs_rq, true);
@@ -3511,7 +3521,7 @@ void sync_entity_load_avg(struct sched_entity *se)
 	u64 last_update_time;
 
 	last_update_time = cfs_rq_last_update_time(cfs_rq);
-	__update_load_avg(last_update_time, cpu_of(rq_of(cfs_rq)), &se->avg, 0, 0, NULL);
+	__update_load_avg(last_update_time, cpu_of(rq_of(cfs_rq)), &se->avg, 0, 0, NULL, NULL);
 }
 
 /*
@@ -3655,6 +3665,11 @@ util_est_dequeue(struct cfs_rq *cfs_rq, struct task_struct *p, bool task_sleep)
 
 static inline int
 update_cfs_rq_load_avg(u64 now, struct cfs_rq *cfs_rq, bool update_freq)
+{
+	return 0;
+}
+
+int update_rt_rq_load_avg(u64 now, int cpu, struct rt_rq *rt_rq, int running)
 {
 	return 0;
 }
@@ -9051,6 +9066,7 @@ static void update_blocked_averages(int cpu)
 		if (se && !skip_blocked_update(se))
 			update_load_avg(se, 0);
 	}
+	update_rt_rq_load_avg(rq_clock_task(rq), cpu, &rq->rt, 0);
 	raw_spin_unlock_irqrestore(&rq->lock, flags);
 }
 
@@ -9110,6 +9126,7 @@ static inline void update_blocked_averages(int cpu)
 	raw_spin_lock_irqsave(&rq->lock, flags);
 	update_rq_clock(rq);
 	update_cfs_rq_load_avg(cfs_rq_clock_task(cfs_rq), cfs_rq, true);
+	update_rt_rq_load_avg(rq_clock_task(rq), cpu, &rq->rt, 0);
 	raw_spin_unlock_irqrestore(&rq->lock, flags);
 }
 
