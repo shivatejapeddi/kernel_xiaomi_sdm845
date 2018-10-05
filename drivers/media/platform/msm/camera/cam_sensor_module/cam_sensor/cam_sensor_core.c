@@ -1177,6 +1177,7 @@ int cam_sensor_apply_settings(struct cam_sensor_ctrl_t *s_ctrl,
 	struct i2c_settings_list *i2c_list;
 		uint16_t i;
 	if (req_id == 0) {
+		CAM_DBG(CAM_SENSOR,"[CDBG] opcode: %d", opcode);
 		switch (opcode) {
 		CAM_DBG(CAM_SENSOR,"[CDBG] opcode: %d", opcode);
 		case CAM_SENSOR_PACKET_OPCODE_SENSOR_STREAMON: {
