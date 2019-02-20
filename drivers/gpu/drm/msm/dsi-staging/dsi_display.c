@@ -1142,6 +1142,7 @@ enum dsi_pixel_format dsi_display_get_dst_format(void *display)
 	return format;
 }
 
+
 static void _dsi_display_setup_misr(struct dsi_display *display)
 {
 	int i;
