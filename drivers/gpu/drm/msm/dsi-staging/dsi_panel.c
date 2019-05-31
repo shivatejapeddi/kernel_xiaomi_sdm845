@@ -37,6 +37,9 @@
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #endif
+#ifdef CONFIG_KLAPSE
+#include <linux/klapse.h>
+#endif
 
 /**
  * topology is currently defined by a set of following 3 values:
