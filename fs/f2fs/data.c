@@ -490,7 +490,7 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
 	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
 			fio->is_por ? META_POR : (__is_meta_io(fio) ?
 			META_GENERIC : DATA_GENERIC_ENHANCE)))
-		return -EFAULT;
+		return -EFSCORRUPTED;
 
 	trace_f2fs_submit_page_bio(page, fio);
 	f2fs_trace_ios(fio, 0);
@@ -533,7 +533,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
 
 	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
 			__is_meta_io(fio) ? META_GENERIC : DATA_GENERIC))
-		return -EFAULT;
+		return -EFSCORRUPTED;
 
 	trace_f2fs_submit_page_bio(page, fio);
 	f2fs_trace_ios(fio, 0);
@@ -858,7 +858,7 @@ struct page *f2fs_get_read_data_page(struct inode *inode, pgoff_t index,
 		dn.data_blkaddr = ei.blk + index - ei.fofs;
 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), dn.data_blkaddr,
 						DATA_GENERIC_ENHANCE_READ)) {
-			err = -EFAULT;
+			err = -EFSCORRUPTED;
 			goto put_err;
 		}
 		goto got_it;
@@ -878,7 +878,7 @@ struct page *f2fs_get_read_data_page(struct inode *inode, pgoff_t index,
 			!f2fs_is_valid_blkaddr(F2FS_I_SB(inode),
 						dn.data_blkaddr,
 						DATA_GENERIC_ENHANCE)) {
-		err = -EFAULT;
+		err = -EFSCORRUPTED;
 		goto put_err;
 	}
 got_it:
@@ -1224,7 +1224,7 @@ next_block:
 
 	if (__is_valid_data_blkaddr(blkaddr) &&
 		!f2fs_is_valid_blkaddr(sbi, blkaddr, DATA_GENERIC_ENHANCE)) {
-		err = -EFAULT;
+		err = -EFSCORRUPTED;
 		goto sync_out;
 	}
 
@@ -1696,8 +1696,8 @@ got_it:
 		}
 
 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
-							DATA_GENERIC_ENHANCE_READ)) {
-			ret = -EFAULT;
+						DATA_GENERIC_ENHANCE_READ)) {
+			ret = -EFSCORRUPTED;
 			goto out;
 		}
 	} else {
@@ -1993,7 +1993,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
 
 		if (!f2fs_is_valid_blkaddr(fio->sbi, fio->old_blkaddr,
 						DATA_GENERIC_ENHANCE))
-			return -EFAULT;
+			return -EFSCORRUPTED;
 
 		ipu_force = true;
 		fio->need_lock = LOCK_DONE;
@@ -2020,7 +2020,7 @@ got_it:
 	if (__is_valid_data_blkaddr(fio->old_blkaddr) &&
 		!f2fs_is_valid_blkaddr(fio->sbi, fio->old_blkaddr,
 						DATA_GENERIC_ENHANCE)) {
-		err = -EFAULT;
+		err = -EFSCORRUPTED;
 		goto out_writepage;
 	}
 	/*
@@ -2706,7 +2706,7 @@ repeat:
 	} else {
 		if (!f2fs_is_valid_blkaddr(sbi, blkaddr,
 				DATA_GENERIC_ENHANCE_READ)) {
-			err = -EFAULT;
+			err = -EFSCORRUPTED;
 			goto fail;
 		}
 		err = f2fs_submit_page_read(inode, page, blkaddr);
