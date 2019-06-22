@@ -110,4 +110,6 @@ source "drivers/staging/misysinfofreader/Kconfig"
 
 source "drivers/staging/qcacld-3.0/Kconfig"
 
+source "drivers/staging/vnswap/Kconfig"
+
 endif # STAGING
