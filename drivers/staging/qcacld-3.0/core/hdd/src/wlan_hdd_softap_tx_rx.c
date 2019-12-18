@@ -364,6 +364,7 @@ int hdd_softap_inspect_dhcp_packet(struct hdd_adapter *adapter,
 	struct qdf_mac_addr *src_mac;
 	QDF_STATUS status;
 
+	//hdd_debug("sta_id=%d, dir=%d", sta_id, dir);
 
 	if (((adapter->device_mode == QDF_SAP_MODE) ||
 	     (adapter->device_mode == QDF_P2P_GO_MODE)) &&
