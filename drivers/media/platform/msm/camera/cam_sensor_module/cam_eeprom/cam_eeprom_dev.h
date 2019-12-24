@@ -1,5 +1,4 @@
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
- * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -35,7 +34,7 @@
 #define PROPERTY_MAXSIZE 32
 
 #define MSM_EEPROM_MEMORY_MAP_MAX_SIZE         80
-#define MSM_EEPROM_MAX_MEM_MAP_CNT             8
+#define MSM_EEPROM_MAX_MEM_MAP_CNT             36
 #define MSM_EEPROM_MEM_MAP_PROPERTIES_CNT      8
 
 #ifdef CONFIG_USE_ROHM_BU64753

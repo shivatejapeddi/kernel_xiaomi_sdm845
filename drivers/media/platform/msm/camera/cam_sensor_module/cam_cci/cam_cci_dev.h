@@ -1,5 +1,4 @@
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
- * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -31,9 +30,9 @@
 #include <media/v4l2-event.h>
 #include <media/v4l2-ioctl.h>
 #include <media/v4l2-subdev.h>
-#include <cam_sensor_cmn_header.h>
+#include "../cam_sensor_utils/cam_sensor_cmn_header.h"
 #include <cam_io_util.h>
-#include <cam_sensor_util.h>
+#include "../cam_sensor_utils/cam_sensor_util.h"
 #include <cam_subdev.h>
 #include <cam_cpas_api.h>
 #include "cam_cci_hwreg.h"

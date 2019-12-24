@@ -1,5 +1,4 @@
 /* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
- * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -17,7 +16,7 @@
 #include <linux/mutex.h>
 #include <linux/spinlock.h>
 #include <linux/kref.h>
-#include "cam_req_mgr_interface.h"
+#include "../cam_req_mgr/cam_req_mgr_interface.h"
 #include "cam_hw_mgr_intf.h"
 
 /* Forward declarations */

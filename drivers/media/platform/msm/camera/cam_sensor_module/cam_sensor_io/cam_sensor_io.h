@@ -1,5 +1,4 @@
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
- * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -16,7 +15,7 @@
 
 #include <media/cam_sensor.h>
 
-#include "cam_sensor_cmn_header.h"
+#include "../cam_sensor_utils/cam_sensor_cmn_header.h"
 
 #define CCI_MASTER 1
 #define I2C_MASTER 2
