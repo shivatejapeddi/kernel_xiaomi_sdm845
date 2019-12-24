@@ -1,4 +1,5 @@
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -17,15 +18,15 @@
 #undef TRACE_SYSTEM
 #define TRACE_SYSTEM camera
 #undef TRACE_INCLUDE_PATH
-#define TRACE_INCLUDE_PATH ../drivers/media/platform/msm/camera/cam_utils
+#define TRACE_INCLUDE_PATH .
 #undef TRACE_INCLUDE_FILE
 #define TRACE_INCLUDE_FILE cam_trace
 
 #include <linux/tracepoint.h>
 #include <media/cam_req_mgr.h>
-#include "../cam_req_mgr/cam_req_mgr_core.h"
-#include "../cam_req_mgr/cam_req_mgr_interface.h"
-#include "../cam_core/cam_context.h"
+#include "cam_req_mgr_core.h"
+#include "cam_req_mgr_interface.h"
+#include "cam_context.h"
 
 TRACE_EVENT(cam_context_state,
 	TP_PROTO(const char *name, struct cam_context *ctx),

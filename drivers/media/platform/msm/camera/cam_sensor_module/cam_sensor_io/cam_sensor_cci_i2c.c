@@ -1,4 +1,5 @@
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -20,7 +21,7 @@ int32_t cam_cci_i2c_read(struct cam_sensor_cci_client *cci_client,
 	enum camera_sensor_i2c_type data_type)
 {
 	int32_t rc = -EINVAL;
-	unsigned char buf[8];
+	unsigned char buf[data_type];
 	struct cam_cci_ctrl cci_ctrl;
 
 	if (addr_type <= CAMERA_SENSOR_I2C_TYPE_INVALID

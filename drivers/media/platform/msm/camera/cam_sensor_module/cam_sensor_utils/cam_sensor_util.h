@@ -1,4 +1,5 @@
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -18,10 +19,10 @@
 #include <linux/gpio.h>
 #include <linux/of_gpio.h>
 #include <linux/of.h>
-#include "cam_sensor_cmn_header.h"
-#include "cam_req_mgr_util.h"
-#include "cam_req_mgr_interface.h"
-#include "cam_mem_mgr.h"
+#include <cam_sensor_cmn_header.h>
+#include <cam_req_mgr_util.h>
+#include <cam_req_mgr_interface.h>
+#include <cam_mem_mgr.h>
 #include "cam_soc_util.h"
 #include "cam_debug_util.h"
 

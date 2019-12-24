@@ -1,4 +1,5 @@
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -17,7 +18,7 @@
 #include <media/v4l2-subdev.h>
 #include <media/cam_sensor.h>
 #include <media/cam_sensor.h>
-#include "../cam_cci/cam_cci_dev.h"
+#include "cam_cci_dev.h"
 #include "cam_sensor_io.h"
 
 #define I2C_POLL_TIME_MS 5
