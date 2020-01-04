@@ -454,6 +454,7 @@ struct synaptics_rmi4_data {
 #endif
 	bool palm_sensor_changed;
 	struct proc_dir_entry *input_proc;
+};
 
 struct synaptics_dsx_bus_access {
 	unsigned char type;
