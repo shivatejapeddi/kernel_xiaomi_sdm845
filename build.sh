@@ -35,7 +35,7 @@ CLANG_FLAGS="CC=clang AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-ob
 
 # Kernel Details
 DEFCONFIG="dipper_user_defconfig"
-VER="-Qbeta+"
+VER="-MemeUI+"
 
 # Paths
 KERNEL_DIR=`pwd`
@@ -63,11 +63,9 @@ function make_zip {
 
     git reset --hard > /dev/null 2>&1
     git clean -fdx > /dev/null 2>&1
-    git checkout EAS
+    git checkout MemeUI
 
-    mkdir -p {kernel,dtbs}
-    cp -vr $ZIMAGE_DIR/Image.gz $AK_DIR/kernel/Image.gz
-    find $ZIMAGE_DIR -name '*.dtb' -exec cp {} dtbs/ \;
+    cp -vr $ZIMAGE_DIR/Image.gz-dtb $AK_DIR/Image.gz-dtb
 
     AK_FULL_VER=$AK_VER-$(date +%F | sed s@-@@g)-dipper
 
