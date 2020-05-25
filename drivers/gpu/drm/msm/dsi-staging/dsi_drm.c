@@ -464,10 +464,8 @@ static void dsi_bridge_post_disable(struct drm_bridge *bridge)
 	int event = 0;
 
 	if (dev->doze_state == DRM_BLANK_UNBLANK) {
-        event = dev->doze_state;
-        return;
-		//dev->doze_state = DRM_BLANK_POWERDOWN;
-		//pr_info("%s wrong doze state\n", __func__);
+		dev->doze_state = DRM_BLANK_POWERDOWN;
+		pr_info("%s wrong doze state\n", __func__);
 	}
 
 	event = dev->doze_state;
