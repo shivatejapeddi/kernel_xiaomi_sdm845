@@ -304,7 +304,6 @@ static int dw_spi_transfer_one(struct spi_master *master,
 	dws->rx_end = dws->rx + transfer->len;
 	dws->len = transfer->len;
 	spin_unlock_irqrestore(&dws->buf_lock, flags);
-
 	/* Ensure dw->rx and dw->rx_end are visible */
 	smp_mb();
 
@@ -496,8 +495,11 @@ int dw_spi_add_host(struct device *dev, struct dw_spi *dws)
 	dws->dma_addr = (dma_addr_t)(dws->paddr + DW_SPI_DR);
 	snprintf(dws->name, sizeof(dws->name), "dw_spi%d", dws->bus_num);
 	spin_lock_init(&dws->buf_lock);
+<<<<<<< HEAD
 
 	spi_master_set_devdata(master, dws);
+=======
+>>>>>>> 2d91c803795c... Merge branch 'kernel.lnx.4.9.r25-rel' of https://github.com/android-linux-stable/msm-4.9 into ra
 
 	ret = request_irq(dws->irq, dw_spi_irq, IRQF_SHARED, dws->name, master);
 	if (ret < 0) {

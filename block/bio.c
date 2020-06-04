@@ -868,6 +868,7 @@ int bio_add_page(struct bio *bio, struct page *page,
 	bio->bi_vcnt++;
 done:
 	bio->bi_iter.bi_size += len;
+
 	return len;
 }
 EXPORT_SYMBOL(bio_add_page);

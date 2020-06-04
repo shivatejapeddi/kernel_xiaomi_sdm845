@@ -192,7 +192,7 @@ static int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
 			} else {
 				break;
 			}
-
+      
 			if (sk->sk_state != TCP_ESTABLISHED) {
 				retv = -ENOTCONN;
 				break;

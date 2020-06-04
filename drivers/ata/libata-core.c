@@ -6548,10 +6548,11 @@ static void ata_port_detach(struct ata_port *ap)
 void ata_host_detach(struct ata_host *host)
 {
 	int i;
-
+ 
 	for (i = 0; i < host->n_ports; i++) {
 		/* Ensure ata_port probe has completed */
 		async_synchronize_cookie(host->ports[i]->cookie + 1);
+
 		ata_port_detach(host->ports[i]);
 	}
 

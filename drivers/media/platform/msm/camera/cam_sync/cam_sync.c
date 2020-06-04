@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017-2020, The Linux Foundation. All rights reserved.
  * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -138,7 +138,7 @@ int cam_sync_deregister_callback(sync_callback cb_func,
 			"Error: accessing an uninitialized sync obj = %d",
 			sync_obj);
 		spin_unlock_bh(&sync_dev->row_spinlocks[sync_obj]);
-		return -EINVAL;
+		return 0;
 	}
 
 	CAM_DBG(CAM_SYNC, "deregistered callback for sync object:%d",
@@ -387,6 +387,7 @@ int cam_sync_destroy(int32_t sync_obj)
 	CAM_DBG(CAM_SYNC, "sync_obj: %i", sync_obj);
 	return cam_sync_deinit_object(sync_dev->sync_table, sync_obj);
 }
+
 
 int cam_sync_wait(int32_t sync_obj, uint64_t timeout_ms)
 {

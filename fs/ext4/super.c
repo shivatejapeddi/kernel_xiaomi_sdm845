@@ -2127,7 +2127,6 @@ int ext4_alloc_flex_bg_array(struct super_block *sb, ext4_group_t ngroup)
 	size = ext4_flex_group(sbi, ngroup - 1) + 1;
 	if (size <= sbi->s_flex_groups_allocated)
 		return 0;
-
 	new_groups = ext4_kvzalloc(roundup_pow_of_two(size *
 				   sizeof(*sbi->s_flex_groups)), GFP_KERNEL);
 	if (!new_groups) {
