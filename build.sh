@@ -11,33 +11,29 @@ clear
 # Number of parallel jobs to run
 THREAD="-j$(nproc)"
 
-# Path to executables in Clang toolchain
-CLANG_BIN="$HOME/Workspace/toolchains/proton_clang-10.0.0/bin"
+
+# arter97's GCC
+GCC64_PATH="$HOME/aex/prebuilts/gcc/linux-x86/aarch64/aarch64-elf"
+GCC32_PATH="$HOME/aex/prebuilts/gcc/linux-x86/arm/arm-eabi"
 
 # 64-bit GCC toolchain prefix
-GCC64_PREFIX="$HOME/Workspace/toolchains/proton_clang-10.0.0/bin/aarch64-linux-gnu-"
+GCC64_PREFIX="$GCC64_PATH/bin/aarch64-elf-"
 
 # 32-bit GCC toolchain prefix
-GCC32_PREFIX="$HOME/Workspace/toolchains/proton_clang-10.0.0/bin/arm-linux-gnueabi-"
+GCC32_PREFIX="$GCC32_PATH/bin/arm-eabi-"
 
 # Setup variables
-export LD_LIBRARY_PATH="$CLANG_BIN/../lib:$CLANG_BIN/../lib64:$LD_LIBRARY_PATH"
-export PATH="$CLANG_BIN:$PATH"
 export CROSS_COMPILE="$GCC64_PREFIX"
 export CROSS_COMPILE_ARM32="$GCC32_PREFIX"
-export CLANG_TRIPLE="aarch64-linux-gnu-"
-
-# Setup Clang flags
-CLANG_FLAGS="CC=clang AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip"
 
 # Kernel Details
-DEFCONFIG="dipper_user_defconfig"
-VER="-Qbeta+"
+DEFCONFIG="beryllium_user_defconfig"
+VER="-AEX+"
 
 # Paths
 KERNEL_DIR=`pwd`
-AK_DIR="$HOME/Workspace/AnyKernel3"
-ZIP_MOVE="$HOME/Workspace/AK-releases"
+AK_DIR="$KERNEL_DIR/anykernel"
+ZIP_MOVE="$HOME/kers"
 ZIMAGE_DIR="$KERNEL_DIR/out/arch/arm64/boot"
 
 # Functions
@@ -49,24 +45,18 @@ function clean_all {
 
 function make_kernel {
     echo
-    make O=out $CLANG_FLAGS $DEFCONFIG
-    make O=out $CLANG_FLAGS savedefconfig
-    make O=out $CLANG_FLAGS $THREAD
+    make O=out $DEFCONFIG
+    make O=out savedefconfig
+    make O=out $THREAD
 }
 
 function make_zip {
     echo
     cd $AK_DIR
 
-    git reset --hard > /dev/null 2>&1
-    git clean -fdx > /dev/null 2>&1
-    git checkout EAS
+    cp -vr $ZIMAGE_DIR/Image.gz-dtb $AK_DIR/Image.gz-dtb
 
-    mkdir -p {kernel,dtbs}
-    cp -vr $ZIMAGE_DIR/Image.gz $AK_DIR/kernel/Image.gz
-    find $ZIMAGE_DIR -name '*.dtb' -exec cp {} dtbs/ \;
-
-    AK_FULL_VER=$AK_VER-$(date +%F | sed s@-@@g)-dipper
+    AK_FULL_VER=$AK_VER-$(date +%F | sed s@-@@g)-beryllium
 
     zip -r9 $AK_FULL_VER.zip *
     mv $AK_FULL_VER.zip $ZIP_MOVE
@@ -83,7 +73,7 @@ echo "-----------------"
 echo -e "${restore}"
 
 # Vars
-BASE_AK_VER="PolarKernel"
+BASE_AK_VER="NoNameKernel"
 AK_VER="$BASE_AK_VER$VER"
 export LOCALVERSION=`echo $VER`
 export ARCH=arm64
