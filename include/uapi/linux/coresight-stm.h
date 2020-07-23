@@ -13,6 +13,10 @@
 #define	OST_ENTITY_DIAG			0xEE
 #define	OST_ENTITY_QVIEW		0xFE
 #define	OST_ENTITY_MAX			0xFF
+#include <linux/const.h>
+
+#define STM_FLAG_TIMESTAMPED   _BITUL(3)
+#define STM_FLAG_GUARANTEED    _BITUL(7)
 
 /*
  * The CoreSight STM supports guaranteed and invariant timing
