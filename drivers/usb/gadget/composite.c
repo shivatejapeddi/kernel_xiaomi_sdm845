@@ -983,7 +983,6 @@ static int set_config(struct usb_composite_dev *cdev,
 					cdev->delayed_status);
 		}
 	}
-
 done:
 	usb_gadget_vbus_draw(gadget, USB_VBUS_DRAW(gadget->speed));
 	if (result >= 0 && cdev->delayed_status)
