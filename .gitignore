@@ -39,7 +39,7 @@ Module.symvers
 *.dwo
 *.su
 *.c.[012]*.*
-
+/anykernel
 #
 # Top-level generic files
 #
