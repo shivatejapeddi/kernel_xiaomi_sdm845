@@ -176,6 +176,7 @@ struct msm_geni_serial_port {
 	int edge_count;
 	bool manual_flow;
 	struct msm_geni_serial_ver_info ver_info;
+	u32 cur_tx_remaining;
 };
 
 static const struct uart_ops msm_geni_serial_pops;
@@ -1489,10 +1490,7 @@ static irqreturn_t msm_geni_serial_isr(int isr, void *dev)
 	struct uart_port *uport = dev;
 	unsigned long flags;
 	unsigned int m_irq_en;
-<<<<<<< HEAD
-=======
 	unsigned int geni_status;
->>>>>>> 2d91c803795c... Merge branch 'kernel.lnx.4.9.r25-rel' of https://github.com/android-linux-stable/msm-4.9 into ra
 	struct msm_geni_serial_port *msm_port = GET_DEV_PORT(uport);
 	struct tty_port *tport = &uport->state->port;
 	bool drop_rx = false;

@@ -388,6 +388,30 @@ int cam_sync_destroy(int32_t sync_obj)
 	return cam_sync_deinit_object(sync_dev->sync_table, sync_obj);
 }
 
+int cam_sync_check_valid(int32_t sync_obj)
+{
+	struct sync_table_row *row = NULL;
+
+	if (sync_obj >= CAM_SYNC_MAX_OBJS || sync_obj <= 0)
+		return -EINVAL;
+
+	row = sync_dev->sync_table + sync_obj;
+
+	if (!test_bit(sync_obj, sync_dev->bitmap)) {
+		CAM_ERR(CAM_SYNC, "Error: Released sync obj received %d",
+			sync_obj);
+		return -EINVAL;
+	}
+
+	if (row->state == CAM_SYNC_STATE_INVALID) {
+		CAM_ERR(CAM_SYNC,
+			"Error: accessing an uninitialized sync obj = %d",
+			sync_obj);
+		return -EINVAL;
+	}
+
+	return 0;
+}
 
 int cam_sync_wait(int32_t sync_obj, uint64_t timeout_ms)
 {

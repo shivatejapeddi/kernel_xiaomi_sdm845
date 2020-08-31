@@ -2108,7 +2108,6 @@ blk_qc_t submit_bio(struct bio *bio)
 	u64 s_running_time, s_runnable_time;
 	unsigned long s_total_time;
 	unsigned int delta;
-
 	/*
 	 * If it's a regular read/write or a barrier with data attached,
 	 * go through the normal accounting stuff before submission.

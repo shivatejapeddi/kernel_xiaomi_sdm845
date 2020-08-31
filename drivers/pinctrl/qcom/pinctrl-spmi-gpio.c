@@ -1190,6 +1190,7 @@ static int pmic_gpio_probe(struct platform_device *pdev)
 		gpiochip_remove(&state->chip);
 		goto err_free;
         }
+
         /**
 	 * For DeviceTree-supported systems, the gpio core checks the
 	 * pinctrl's device node for the "gpio-ranges" property.

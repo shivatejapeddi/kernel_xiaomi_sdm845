@@ -650,7 +650,7 @@ int snd_rawmidi_output_params(struct snd_rawmidi_substream *substream,
 {
 	char *newbuf, *oldbuf;
 	struct snd_rawmidi_runtime *runtime = substream->runtime;
-	
+
 	if (substream->append && substream->use_count > 1)
 		return -EBUSY;
 	snd_rawmidi_drain_output(substream);
@@ -979,7 +979,6 @@ static long snd_rawmidi_kernel_read1(struct snd_rawmidi_substream *substream,
 	struct snd_rawmidi_runtime *runtime = substream->runtime;
 	unsigned long appl_ptr;
 	int err = 0;
-
 	spin_lock_irqsave(&runtime->lock, flags);
 	snd_rawmidi_buffer_ref(runtime);
 	while (count > 0 && runtime->avail) {
@@ -1012,8 +1011,6 @@ static long snd_rawmidi_kernel_read1(struct snd_rawmidi_substream *substream,
  out:
 	snd_rawmidi_buffer_unref(runtime);
 	spin_unlock_irqrestore(&runtime->lock, flags);
-	if (userbuf)
-		mutex_unlock(&runtime->realloc_mutex);
 	return result > 0 ? result : err;
 }
 

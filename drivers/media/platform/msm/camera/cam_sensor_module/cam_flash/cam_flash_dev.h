@@ -143,6 +143,14 @@ struct cam_flash_private_soc {
 	uint8_t      gpio_delay_tbl_size;
 };
 
+struct cam_flash_func_tbl {
+	int (*parser)(struct cam_flash_ctrl *fctrl, void *arg);
+	int (*apply_setting)(struct cam_flash_ctrl *fctrl, uint64_t req_id);
+	int (*power_ops)(struct cam_flash_ctrl *fctrl, bool regulator_enable);
+	int (*flush_req)(struct cam_flash_ctrl *fctrl,
+		enum cam_flash_flush_type type, uint64_t req_id);
+};
+
 /**
  *  struct cam_flash_ctrl
  * @soc_info            : Soc related information

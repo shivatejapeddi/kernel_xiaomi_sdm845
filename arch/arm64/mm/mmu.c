@@ -32,7 +32,6 @@
 #include <linux/cma.h>
 #include <linux/mm.h>
 
-
 #include <asm/barrier.h>
 #include <asm/cputype.h>
 #include <asm/fixmap.h>
