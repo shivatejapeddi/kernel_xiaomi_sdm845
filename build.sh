@@ -13,8 +13,8 @@ THREAD="-j9"
 
 
 # arter97's GCC
-GCC64_PATH="/home/dominicburrito/kernels/gcc-clang/arm64-gcc/aarch64-elf"
-GCC32_PATH="/home/dominicburrito/kernels/gcc-clang/arm32-gcc/arm/arm-eabi"
+GCC64_PATH="$HOME/aex/prebuilts/gcc/linux-x86/aarch64/aarch64-elf"
+GCC32_PATH="$HOME/aex/prebuilts/gcc/linux-x86/arm/arm-eabi"
 
 # 64-bit GCC toolchain prefix
 GCC64_PREFIX="$GCC64_PATH/bin/aarch64-elf-"
