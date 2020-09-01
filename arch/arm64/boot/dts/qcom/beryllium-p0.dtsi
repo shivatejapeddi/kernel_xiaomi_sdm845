@@ -583,7 +583,10 @@
 };
 
 &pm8998_l14 {
-	//regulator-boot-on;
+	regulator-min-microvolt = <1800000>;
+	regulator-max-microvolt = <2000000>;
+	qcom,init-voltage = <1900000>;
+	regulator-boot-on;
 };
 
 &qcom_qbt1000 {
@@ -792,7 +795,7 @@
 
 		trips {
 			active-config0 {
-				temperature = <65000>;
+				temperature = <125000>;
 				hysteresis = <1000>;
 				type = "passive";
 			};
@@ -808,7 +811,7 @@
 
 		trips {
 			active-config0 {
-					temperature = <65000>;
+					temperature = <125000>;
 					hysteresis = <1000>;
 					type = "passive";
 			};
@@ -824,7 +827,7 @@
 
 		trips {
 			active-config0 {
-					temperature = <65000>;
+					temperature = <125000>;
 					hysteresis = <1000>;
 					type = "passive";
 			};
@@ -840,7 +843,7 @@
 
 		trips {
 			active-config0 {
-					temperature = <65000>;
+					temperature = <125000>;
 					hysteresis = <1000>;
 					type = "passive";
 			};
@@ -856,7 +859,7 @@
 
 		trips {
 			active-config0 {
-					temperature = <65000>;
+					temperature = <125000>;
 					hysteresis = <1000>;
 					type = "passive";
 			};
@@ -872,7 +875,7 @@
 
 		trips {
 			active-config0 {
-				temperature = <65000>;
+				temperature = <125000>;
 				hysteresis = <1000>;
 				type = "passive";
 			};
@@ -888,7 +891,7 @@
 
 		trips {
 			active-config0 {
-				temperature = <65000>;
+				temperature = <125000>;
 				hysteresis = <1000>;
 				type = "passive";
 			};
