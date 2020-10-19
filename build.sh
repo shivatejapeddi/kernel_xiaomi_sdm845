@@ -28,7 +28,7 @@ export CROSS_COMPILE_ARM32="$GCC32_PREFIX"
 
 # Kernel Details
 DEFCONFIG="beryllium_user_defconfig"
-VER="-AEX+"
+VER="-1.0"
 
 # Paths
 KERNEL_DIR=`pwd`
