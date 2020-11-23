@@ -13,8 +13,8 @@ THREAD="-j9"
 
 
 # arter97's GCC
-GCC64_PATH="$HOME/q/prebuilts/gcc/linux-x86/aarch64/aarch64-elf"
-GCC32_PATH="$HOME/q/prebuilts/gcc/linux-x86/arm/arm-eabi"
+GCC64_PATH="$HOME/aex_poco/prebuilts/gcc/linux-x86/aarch64/aarch64-elf"
+GCC32_PATH="$HOME/aex_poco/prebuilts/gcc/linux-x86/arm/arm-eabi"
 
 # 64-bit GCC toolchain prefix
 GCC64_PREFIX="$GCC64_PATH/bin/aarch64-elf-"
