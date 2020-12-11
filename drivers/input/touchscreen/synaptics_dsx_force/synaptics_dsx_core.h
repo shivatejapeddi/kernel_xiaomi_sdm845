@@ -453,7 +453,8 @@ struct synaptics_rmi4_data {
 	struct clk *iface_clk;
 #endif
 	bool palm_sensor_changed;
-	struct proc_dir_entry *input_proc;
+	struct proc_dir_entry *input_proc; 
+};
 
 struct synaptics_dsx_bus_access {
 	unsigned char type;
