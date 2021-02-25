@@ -4526,7 +4526,7 @@ kgsl_get_unmapped_area(struct file *file, unsigned long addr,
 		if (IS_ERR_VALUE(val)) {
 			KGSL_DRV_ERR_RATELIMIT(device,
 				"_get_svm_area: pid %d[%12s] mmap_base %lx addr %lx pgoff %lx len %ld failed error %d\n",
-				pid_nr(private->pid), pid_nr(private->comm), current->mm->mmap_base, addr,
+				pid_nr(private->pid), private->comm, current->mm->mmap_base, addr,
 				pgoff, len, (int) val);
 
 			if (ktime_after(ktime_get(), private->last_oom_time)) {
