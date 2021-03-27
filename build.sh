@@ -27,7 +27,7 @@ export CROSS_COMPILE="$GCC64_PREFIX"
 export CROSS_COMPILE_ARM32="$GCC32_PREFIX"
 
 # Kernel Details
-DEFCONFIG="dipper_user_defconfig"
+DEFCONFIG="beryllium_user_defconfig"
 VER="-1.0"
 
 # Paths
