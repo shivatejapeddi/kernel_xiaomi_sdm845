@@ -60,7 +60,6 @@ struct sugov_policy {
 	struct task_struct *thread;
 	bool work_in_progress;
 
-	bool limits_changed;
 	bool need_freq_update;
 };
 
@@ -115,9 +114,13 @@ static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
 	if (!cpufreq_this_cpu_can_update(sg_policy->policy))
 		return false;
 
-	if (unlikely(sg_policy->limits_changed)) {
-		sg_policy->limits_changed = false;
-		sg_policy->need_freq_update = true;
+	if (unlikely(sg_policy->need_freq_update)) {
+		sg_policy->need_freq_update = false;
+		/*
+		 * This happens when limits change, so forget the previous
+		 * next_freq value and force an update.
+		 */
+		sg_policy->next_freq = UINT_MAX;
 		return true;
 	}
 
@@ -222,9 +225,8 @@ static unsigned int get_next_freq(struct sugov_policy *sg_policy,
 	trace_sugov_next_freq(policy->cpu, util, max, freq);
 
 	if (freq == sg_policy->cached_raw_freq
-			&& !sg_policy->need_freq_update)
+			&& sg_policy->next_freq != UINT_MAX)
 		next_freq = sg_policy->next_freq;
-	sg_policy->need_freq_update = false;   
 	else {
 		sg_policy->cached_raw_freq = freq;
 		cpufreq_gov_stats_record_transition(sg_policy->policy, freq);
@@ -425,8 +427,7 @@ static void sugov_update_single(struct update_util_data *hook, u64 time,
 	if (!sugov_should_update_freq(sg_policy, time))
 		return;
 
-	/* Limits may have changed, don't skip frequency update */
-	busy = use_pelt() && !sg_policy->need_freq_update && sugov_cpu_is_busy(sg_cpu);
+	busy = use_pelt() && sugov_cpu_is_busy(sg_cpu);
 
 	raw_spin_lock(&sg_policy->update_lock);
 	if (flags & SCHED_CPUFREQ_RT_DL) {
@@ -1043,9 +1044,8 @@ static int sugov_start(struct cpufreq_policy *policy)
 		sg_policy->tunables->down_rate_limit_us * NSEC_PER_USEC;
 	update_min_rate_limit_ns(sg_policy);
 	sg_policy->last_freq_update_time = 0;
-	sg_policy->next_freq = 0;
+	sg_policy->next_freq = UINT_MAX;
 	sg_policy->work_in_progress = false;
-	sg_policy->limits_changed = false;
 	sg_policy->need_freq_update = false;
 	sg_policy->cached_raw_freq = 0;
 
@@ -1104,7 +1104,7 @@ static void sugov_limits(struct cpufreq_policy *policy)
 		cpufreq_policy_apply_limits_fast(policy);
 	}
 
-	sg_policy->limits_changed = true;
+	sg_policy->need_freq_update = true;
 }
 
 static struct cpufreq_governor schedutil_gov = {
