@@ -33,7 +33,7 @@ VER="-1.0"
 # Paths
 KERNEL_DIR=`pwd`
 AK_DIR="$KERNEL_DIR/anykernel"
-ZIP_MOVE="$HOME/kers"
+ZIP_MOVE="$HOME/aex_poco"
 ZIMAGE_DIR="$KERNEL_DIR/out/arch/arm64/boot"
 
 # Functions
