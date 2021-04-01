@@ -27,13 +27,13 @@ export CROSS_COMPILE="$GCC64_PREFIX"
 export CROSS_COMPILE_ARM32="$GCC32_PREFIX"
 
 # Kernel Details
-DEFCONFIG="dipper_user_defconfig"
-VER="-1.0"
+DEFCONFIG="beryllium_user_defconfig"
+VER="-2.0"
 
 # Paths
 KERNEL_DIR=`pwd`
 AK_DIR="$KERNEL_DIR/anykernel"
-ZIP_MOVE="$HOME/kers"
+ZIP_MOVE="$HOME/aex_poco"
 ZIMAGE_DIR="$KERNEL_DIR/out/arch/arm64/boot"
 
 # Functions
