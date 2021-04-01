@@ -5,7 +5,7 @@
 #include <linux/jump_label.h>
 #include <linux/kobject.h>
 #include <linux/rcupdate.h>
-#include <linux/sched/cpufreq.h>
+#include <linux/cpufreq.h>
 #include <linux/types.h>
 
 /**

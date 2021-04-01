@@ -5130,11 +5130,6 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
 	 * estimated utilization, before we update schedutil.
 	 */
 	util_est_enqueue(&rq->cfs, p);
-
-	 * If in_iowait is set, the code below may not trigger any cpufreq
-	 * utilization updates, so do it here explicitly with the IOWAIT flag
-	 * passed.
-	 */
 	if (p->in_iowait)
 		cpufreq_update_this_cpu(rq, SCHED_CPUFREQ_IOWAIT);
 
@@ -7902,12 +7897,6 @@ static unsigned long cpu_util_next(int cpu, struct task_struct *p, int dst_cpu)
 	return min_t(unsigned long, util, capacity_orig_of(cpu));
 }
 
-unsigned long sched_get_rt_rq_util(int cpu)
-{
-	struct rq *rq = cpu_rq(cpu);
-	return cpu_util_rt(rq);
-}
-
 /*
  * compute_energy_simplified(): Estimates the energy that would be consumed
  * if @p was migrated to @dst_cpu. compute_energy_simplified() predicts what
@@ -7935,7 +7924,6 @@ static long compute_energy_simplified(struct task_struct *p, int dst_cpu,
 		 */
 		for_each_cpu_and(cpu, perf_domain_span(pd), cpu_online_mask) {
 			util = cpu_util_next(cpu, p, dst_cpu);
-			util += sched_get_rt_rq_util(cpu);
 			max_util = max(util, max_util);
 			sum_util += util;
 		}
